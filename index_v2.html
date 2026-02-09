@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>كأس المغربية – Moroccan Cups</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  direction: rtl;
+  text-align: center;
+  background: #fff7f0;
+  color: #4b3b2f;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #8b0000;
+  color: white;
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.container {
+  padding: 20px;
+}
+
+input, select, button {
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #8b0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b22222;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.icon {
+  font-size: 30px;
+  margin: 0 5px;
+  color: #b22222;
+}
+</style>
+</head>
+<body>
+
+<header>كأس المغربية – Moroccan Cups</header>
+
+<div class="container">
+  <p>حوّل الغرام أو المليلتر إلى كأس العنبة</p>
+  
+  <input type="number" id="amount" placeholder="أدخل الكمية (g / ml)">
+  
+  <select id="ingredient">
+    <option value="flour">الدقيق / Flour</option>
+    <option value="sugar_grains">سكر حبيبات / Granulated sugar</option>
+    <option value="sugar_powder">سكر ناعم / Powdered sugar</option>
+    <option value="semolina">السميد / Semolina</option>
+    <option value="cocoa">الكاكاو / Cocoa</option>
+    <option value="milk_powder">الحليب بودرة / Milk powder</option>
+    <option value="coconut">الكوك / Coconut</option>
+    <option value="water">الماء / Water</option>
+    <option value="milk">الحليب / Milk</option>
+    <option value="oil">الزيت / Oil</option>
+    <option value="sesame">السمسم / Sesame</option>
+    <option value="almond">اللوز / Almond</option>
+  </select>
+  
+  <button onclick="convert()">حوّل / Convert</button>
+  
+  <div class="result" id="result"></div>
+  <div class="note">1 كأس العنبة ≈ 110 غرام للسمسم واللوز حسب النوعية, 170 مل للماء والحليب والزيت</div>
+</div>
+
+<script>
+function convert() {
+  let amount = parseFloat(document.getElementById("amount").value);
+  let ingredient = document.getElementById("ingredient").value;
+  if (isNaN(amount) || amount <= 0) {
+    document.getElementById("result").innerHTML = "أدخل قيمة صحيحة / Enter a valid number";
+    return;
+  }
+
+  let cup;
+  switch(ingredient) {
+    case "flour": cup = amount / 120; break;
+    case "sugar_grains": cup = amount / 125; break;
+    case "sugar_powder": cup = amount / 200; break;
+    case "semolina": cup = amount / 125; break;
+    case "cocoa": cup = amount / 100; break;
+    case "milk_powder": cup = amount / 75; break;
+    case "coconut": cup = amount / 80; break;
+    case "water": 
+    case "milk": cup = amount / 170; break;
+    case "oil": cup = amount / 170; break;
+    case "sesame": cup = amount / 110; break;
+    case "almond": cup = amount / 110; break;
+    default: cup = 0;
+  }
+
+  // حساب ربع، نصف، كامل كأس
+  let quarter = (cup/4).toFixed(2);
+  let half = (cup/2).toFixed(2);
+  let full = cup.toFixed(2);
+
+  document.getElementById("result").innerHTML =
+    `≈ ${full} كأس كاملة <span class="icon">🥄</span><br>` +
+    `≈ ${half} نصف كأس <span class="icon">🥄</span><br>` +
+    `≈ ${quarter} ربع كأس <span class="icon">🥄</span>`;
+}
+</script>
+
+</body>
+</html>
